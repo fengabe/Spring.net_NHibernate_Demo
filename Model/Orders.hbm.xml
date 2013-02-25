@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Model.Orders, Model" table="Orders">
+		<id name="Id" type="Int32" unsaved-value="null">
+			<column name="Id" length="4" sql-type="int" not-null="true" unique="true" index="PK_ORDERS"/>
+			<generator class="native" />
+		</id>
+		<property name="OrderDate" type="DateTime">
+			<column name="OrderDate" length="8" sql-type="datetime" not-null="true"/>
+		</property>
+		<property name="TotalPrice" type="Decimal">
+			<column name="TotalPrice" length="9" sql-type="decimal" not-null="true"/>
+		</property>
+		<many-to-one name="User" class="Model.Users, Model">
+			<column name="UserId" length="4" sql-type="int" not-null="true"/>
+		</many-to-one>
+		<bag name="OrderOrderBooks" inverse="true" lazy="true" cascade="all-delete-orphan">
+			<key column="OrderID"/>
+			<one-to-many class="Model.OrderBook, Model"/>
+		</bag>
+	</class>
+</hibernate-mapping>

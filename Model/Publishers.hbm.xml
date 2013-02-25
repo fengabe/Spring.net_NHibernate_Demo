@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Model.Publisher, Model" table="Publishers">
+		<id name="Id" type="Int32" unsaved-value="null">
+			<column name="Id" length="4" sql-type="int" not-null="true" unique="true" index="PK_Publisher"/>
+			<generator class="native" />
+		</id>
+		<property name="Name" type="String">
+			<column name="Name" length="200" sql-type="nvarchar" not-null="true" unique="true" index="IX_Publishers_Name"/>
+		</property>
+		<bag name="PublisherBookses" inverse="true" lazy="true" cascade="all-delete-orphan">
+			<key column="PublisherId"/>
+			<one-to-many class="Model.Book, Model"/>
+		</bag>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Model.BookRating, Model" table="BookRatings">
+		<id name="Id" type="Int32" unsaved-value="null">
+			<column name="Id" length="4" sql-type="int" not-null="true" unique="true" index="PK_BookRatins"/>
+			<generator class="native" />
+		</id>
+		<property name="Rating" type="Int32">
+			<column name="Rating" length="4" sql-type="int" not-null="false"/>
+		</property>
+		<property name="Comment" type="String">
+			<column name="Comment" length="50" sql-type="varchar" not-null="false"/>
+		</property>
+		<many-to-one name="Book" class="Model.Book, Model">
+			<column name="BookId" length="4" sql-type="int" not-null="false"/>
+		</many-to-one>
+		<many-to-one name="User" class="Model.Users, Model">
+			<column name="UserId" length="4" sql-type="int" not-null="false"/>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Model.Book, Model" table="Books">
+		<id name="Id" type="Int32" unsaved-value="null">
+			<column name="Id" length="4" sql-type="int" not-null="true" unique="true" index="PK_Book"/>
+			<generator class="native" />
+		</id>
+		<property name="Title" type="String">
+			<column name="Title" length="200" sql-type="nvarchar" not-null="true"/>
+		</property>
+		<property name="Author" type="String">
+			<column name="Author" length="200" sql-type="nvarchar" not-null="true"/>
+		</property>
+		<property name="UnitPrice" type="Decimal">
+			<column name="UnitPrice" length="8" sql-type="money" not-null="true"/>
+		</property>
+		<property name="Clicks" type="Int32">
+			<column name="Clicks" length="4" sql-type="int" not-null="true"/>
+		</property>
+		<property name="PublishDate" type="DateTime">
+			<column name="PublishDate" length="8" sql-type="datetime" not-null="true"/>
+		</property>
+		<property name="ISBN" type="String">
+			<column name="ISBN" length="50" sql-type="nvarchar" not-null="true" unique="true" index="IX_Books_ISBN"/>
+		</property>
+		<property name="WordsCount" type="Int32">
+			<column name="WordsCount" length="4" sql-type="int" not-null="true"/>
+		</property>
+		<property name="ContentDescription" type="String">
+			<column name="ContentDescription" sql-type="nvarchar" not-null="false"/>
+		</property>
+		<property name="AurhorDescription" type="String">
+			<column name="AurhorDescription" sql-type="nvarchar" not-null="false"/>
+		</property>
+		<property name="EditorComment" type="String">
+			<column name="EditorComment" sql-type="nvarchar" not-null="false"/>
+		</property>
+		<property name="TOC" type="String">
+			<column name="TOC" sql-type="nvarchar" not-null="false"/>
+		</property>
+		<property name="Isrecommend" type="Boolean">
+			<column name="Isrecommend" length="1" sql-type="bit" not-null="true"/>
+		</property>
+		<many-to-one name="Category" class="Model.Category, Model">
+			<column name="CategoryId" length="4" sql-type="int" not-null="true"/>
+		</many-to-one>
+		<many-to-one name="Publisher" class="Model.Publisher, Model">
+			<column name="PublisherId" length="4" sql-type="int" not-null="true"/>
+		</many-to-one>
+		<bag name="BookBookRatingses" inverse="true" lazy="true" cascade="all-delete-orphan">
+			<key column="BookId"/>
+			<one-to-many class="Model.BookRating, Model"/>
+		</bag>
+		<bag name="BookOrderBooks" inverse="true" lazy="true" cascade="all-delete-orphan">
+			<key column="BookID"/>
+			<one-to-many class="Model.OrderBook, Model"/>
+		</bag>
+	
+	</class>
+</hibernate-mapping>

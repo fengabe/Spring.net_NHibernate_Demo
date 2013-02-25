@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Model.OrderBook, Model" table="OrderBook">
+		<id name="Id" type="Int32" unsaved-value="null">
+			<column name="Id" length="4" sql-type="int" not-null="true" unique="true" index="PK_OrderBook"/>
+			<generator class="native" />
+		</id>
+		<property name="Quantity" type="Int32">
+			<column name="Quantity" length="4" sql-type="int" not-null="true"/>
+		</property>
+		<property name="UnitPrice" type="Decimal">
+			<column name="UnitPrice" length="9" sql-type="decimal" not-null="true"/>
+		</property>
+		<many-to-one name="Book" class="Model.Book, Model">
+			<column name="BookID" length="4" sql-type="int" not-null="true"/>
+		</many-to-one>
+		<many-to-one name="Order" class="Model.Orders, Model">
+			<column name="OrderID" length="4" sql-type="int" not-null="true"/>
+		</many-to-one>
+	</class>
+</hibernate-mapping>
